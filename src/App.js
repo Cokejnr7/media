@@ -1,5 +1,11 @@
+import UsersList from "./components/UsersList";
+
 const App = () => {
-  return <main>App</main>;
+  return (
+    <div className="container mx-auto">
+      <UsersList />
+    </div>
+  );
 };
 
 export default App;
