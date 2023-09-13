@@ -1,5 +1,18 @@
 {
-    "users": [],
-    "albums": [],
-    "photos": []
+  "users": [
+    {
+      "id": 1,
+      "name": "John"
+    },
+    {
+      "name": "Darren Yost-Grady",
+      "id": 2
+    },
+    {
+      "name": "Lloyd Rolfson",
+      "id": 3
+    }
+  ],
+  "albums": [],
+  "photos": []
 }
