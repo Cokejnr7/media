@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, addUser } from "../store";
 import Skeleton from "./Skeleton";
@@ -10,7 +10,7 @@ const UsersList = () => {
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
 
-    const doFetchUsers = () => {
+    const doFetchUsers = useCallback(() => {
       setIsLoading(true);
       dispatch(thunk())
         .unwrap()
@@ -19,7 +19,7 @@ const UsersList = () => {
         })
         .catch((error) => setError("Couldn't fetch users"))
         .finally(() => setIsLoading(false));
-    };
+    }, [thunk, dispatch]);
 
     return [doFetchUsers, isLoading, error];
   };
@@ -27,14 +27,14 @@ const UsersList = () => {
   const { data: users } = useSelector((state) => {
     return state.users;
   });
-  const dispatch = useDispatch();
+
   const [doFetchUsers, isLoadingUsers, userFetchError] = useThunk(fetchUsers);
   const [createUser, userCreationLoading, userCreateError] = useThunk(addUser);
   useThunk(fetchUsers);
 
   useEffect(() => {
     doFetchUsers();
-  }, []);
+  }, [doFetchUsers]);
 
   const handleUserAdd = () => {
     createUser();
