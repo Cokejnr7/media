@@ -11,7 +11,7 @@ const UsersList = () => {
   });
 
   const [doFetchUsers, isLoadingUsers, userFetchError] = useThunk(fetchUsers);
-  const [createUser, userCreationLoading, userCreateError] = useThunk(addUser);
+  const [createUser, isCreatingUser, userCreateError] = useThunk(addUser);
 
   useEffect(() => {
     doFetchUsers();
@@ -38,8 +38,8 @@ const UsersList = () => {
     <div>
       <div className="flex flex-ro justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        <Button onClick={handleUserAdd}>
-          {userCreationLoading ? "Creating User..." : "+ Add User"}
+        <Button loading={isCreatingUser} onClick={handleUserAdd}>
+          + Add User
         </Button>
       </div>
       {renderedUsers}
