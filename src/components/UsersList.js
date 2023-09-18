@@ -1,28 +1,45 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers, addUser } from "../store";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
 
 const UsersList = () => {
-  const dispatch = useDispatch();
-  const {
-    isLoading,
-    data: users,
-    error,
-  } = useSelector((state) => {
+  const useThunk = (thunk) => {
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const dispatch = useDispatch();
+
+    const doFetchUsers = () => {
+      setIsLoading(true);
+      dispatch(thunk())
+        .unwrap()
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch((error) => setError("Couldn't fetch users"))
+        .finally(() => setIsLoading(false));
+    };
+
+    return [doFetchUsers, isLoading, error];
+  };
+
+  const { data: users } = useSelector((state) => {
     return state.users;
   });
+  const dispatch = useDispatch();
+  const [doFetchUsers, isLoadingUsers, error] = useThunk(fetchUsers);
+
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
+    doFetchUsers();
+  }, []);
 
   const handleUserAdd = () => {
     dispatch(addUser());
   };
 
-  if (isLoading) return <Skeleton times={6} className="h-10 w-full" />;
-  if (error) return "error";
+  if (isLoadingUsers) return <Skeleton times={6} className="h-10 w-full" />;
+  if (error) return error;
 
   const renderedUsers = users.map((user) => {
     return (
