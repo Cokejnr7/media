@@ -9,7 +9,7 @@ export const fetchUsers = createAsyncThunk("users/fetch", async () => {
 });
 
 // Development only
-const pause = (delay) => {
+export const pause = (delay) => {
   return new Promise((resolve) => {
     setTimeout(resolve, delay);
   });

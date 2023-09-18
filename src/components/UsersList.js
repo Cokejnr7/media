@@ -28,18 +28,20 @@ const UsersList = () => {
     return state.users;
   });
   const dispatch = useDispatch();
-  const [doFetchUsers, isLoadingUsers, error] = useThunk(fetchUsers);
+  const [doFetchUsers, isLoadingUsers, userFetchError] = useThunk(fetchUsers);
+  const [createUser, userCreationLoading, userCreateError] = useThunk(addUser);
+  useThunk(fetchUsers);
 
   useEffect(() => {
     doFetchUsers();
   }, []);
 
   const handleUserAdd = () => {
-    dispatch(addUser());
+    createUser();
   };
 
   if (isLoadingUsers) return <Skeleton times={6} className="h-10 w-full" />;
-  if (error) return error;
+  if (userFetchError) return userFetchError;
 
   const renderedUsers = users.map((user) => {
     return (
@@ -55,7 +57,9 @@ const UsersList = () => {
     <div>
       <div className="flex flex-ro justify-between m-3">
         <h1 className="m-2 text-xl">Users</h1>
-        <Button onClick={handleUserAdd}>+ Add User</Button>
+        <Button onClick={handleUserAdd}>
+          {userCreationLoading ? "Creating User..." : "+ Add User"}
+        </Button>
       </div>
       {renderedUsers}
     </div>
