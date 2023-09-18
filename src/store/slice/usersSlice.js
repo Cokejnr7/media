@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchUsers } from "../thunk/fetchUsers";
 import { addUser } from "../thunk/addUser";
+import { removeUser } from "../thunk/removeUser";
 
 const usersSlice = createSlice({
   name: "users",
@@ -12,18 +13,13 @@ const usersSlice = createSlice({
       state.data = action.payload;
     });
 
-    builder.addCase(addUser.pending, (state, action) => {
-      state.isLoading = true;
-    });
-
     builder.addCase(addUser.fulfilled, (state, action) => {
-      state.isLoading = false;
       state.data.push(action.payload);
     });
 
-    builder.addCase(addUser.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error;
+    builder.addCase(removeUser.fulfilled, (state, action) => {
+      // state.data = state.data.filter((user) => user.id !== action.payload);
+      console.log(action);
     });
   },
 });

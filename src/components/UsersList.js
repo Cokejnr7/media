@@ -4,6 +4,7 @@ import { fetchUsers, addUser } from "../store";
 import useThunk from "../hook/use-thunk";
 import Skeleton from "./Skeleton";
 import Button from "./Button";
+import UserListItem from "./UserListItem";
 
 const UsersList = () => {
   const { data: users } = useSelector((state) => {
@@ -27,13 +28,7 @@ const UsersList = () => {
     content = "Error fetching users";
   } else {
     content = users.map((user) => {
-      return (
-        <div key={user.id} className="mb-2 border rounded">
-          <div className="flex p-2 justify-between items-center cursor-pointer">
-            {user.name}
-          </div>
-        </div>
-      );
+      return <UserListItem key={user.id} user={user} />;
     });
   }
 
