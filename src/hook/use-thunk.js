@@ -13,7 +13,7 @@ const useThunk = (thunk) => {
       .then(() => {
         setIsLoading(false);
       })
-      .catch((error) => setError("Couldn't fetch users"))
+      .catch((error) => setError(error))
       .finally(() => setIsLoading(false));
   }, [thunk, dispatch]);
 
