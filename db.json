@@ -45,6 +45,6 @@
       "id": 11
     }
   ],
-  "albums": [],
+  "albums": [{"id": 10,"title": "Belinda Stiedemann","userId": 8}],
   "photos": []
 }
