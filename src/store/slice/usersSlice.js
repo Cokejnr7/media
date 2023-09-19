@@ -18,8 +18,7 @@ const usersSlice = createSlice({
     });
 
     builder.addCase(removeUser.fulfilled, (state, action) => {
-      // state.data = state.data.filter((user) => user.id !== action.payload);
-      console.log(action);
+      state.data = state.data.filter((user) => user.id !== action.payload);
     });
   },
 });

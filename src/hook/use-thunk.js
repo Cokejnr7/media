@@ -6,18 +6,21 @@ const useThunk = (thunk) => {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
 
-  const doFetchUsers = useCallback(() => {
-    setIsLoading(true);
-    dispatch(thunk())
-      .unwrap()
-      .then(() => {
-        setIsLoading(false);
-      })
-      .catch((error) => setError(error))
-      .finally(() => setIsLoading(false));
-  }, [thunk, dispatch]);
+  const runThunk = useCallback(
+    (arg) => {
+      setIsLoading(true);
+      dispatch(thunk(arg))
+        .unwrap()
+        .then(() => {
+          setIsLoading(false);
+        })
+        .catch((error) => setError(error))
+        .finally(() => setIsLoading(false));
+    },
+    [thunk, dispatch]
+  );
 
-  return [doFetchUsers, isLoading, error];
+  return [runThunk, isLoading, error];
 };
 
 export default useThunk;
