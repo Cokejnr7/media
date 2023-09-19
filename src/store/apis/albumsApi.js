@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+// creating an api automatically generates a slice,thunk and hook
 const albumsApi = createApi({
   // this identifies the reducer for the api
   reducerPath: "albums",
@@ -7,4 +8,21 @@ const albumsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005",
   }),
+  endpoints(builder) {
+    return {
+      fetchAlbums: builder.query({
+        query: (user) => {
+          return {
+            url: "/albums",
+            params: {
+              userId: user.id,
+            },
+            method: "GET",
+          };
+        },
+      }),
+    };
+  },
 });
+
+// creates a new hook useFetchAlbumsQuery
