@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { faker } from "@faker-js/faker";
 
 // creating an api automatically generates a slice,thunk and hook
 export const albumsApi = createApi({
@@ -10,6 +11,19 @@ export const albumsApi = createApi({
   }),
   endpoints(builder) {
     return {
+      addAlbum: builder.mutation({
+        // query is a function that returns parameters for a request
+        query: (user) => {
+          return {
+            url: "/albums",
+            method: "POST",
+            body: {
+              userId: user.id,
+              title: faker.commerce.productName(),
+            },
+          };
+        },
+      }),
       fetchAlbums: builder.query({
         query: (user) => {
           return {
