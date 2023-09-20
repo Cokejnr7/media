@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { faker } from "@faker-js/faker";
+import { pause } from "../thunk/fetchUsers";
 
 // creating an api automatically generates a slice,thunk and hook
 export const albumsApi = createApi({
@@ -8,6 +9,10 @@ export const albumsApi = createApi({
   // this enables the api to know how and where to send requests
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3005",
+    fetchFn: async (...args) => {
+      await pause(1000);
+      return fetch(...args);
+    },
   }),
   endpoints(builder) {
     return {

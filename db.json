@@ -55,6 +55,21 @@
       "userId": 1,
       "title": "Handcrafted Bronze Car",
       "id": 11
+    },
+    {
+      "userId": 1,
+      "title": "Licensed Wooden Ball",
+      "id": 12
+    },
+    {
+      "userId": 1,
+      "title": "Awesome Plastic Pants",
+      "id": 13
+    },
+    {
+      "userId": 6,
+      "title": "Luxurious Frozen Table",
+      "id": 14
     }
   ],
   "photos": []
