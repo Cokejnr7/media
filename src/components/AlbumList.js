@@ -1,4 +1,4 @@
-import { useFetchAlbumsQuery } from "../store";
+import { useFetchAlbumsQuery, useAddAlbumMutation } from "../store";
 import Skeleton from "./Skeleton";
 import ExpandablePanel from "./ExpandablePanel";
 import Button from "./Button";
@@ -6,6 +6,11 @@ import Button from "./Button";
 const AlbumList = ({ user }) => {
   // the hook returns an object with the following properties
   const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const [addAlbum, results] = useAddAlbumMutation();
+
+  const handleAddAlbum = () => {
+    addAlbum(user);
+  };
 
   let content;
   if (isLoading) {
@@ -25,7 +30,10 @@ const AlbumList = ({ user }) => {
 
   return (
     <div>
-      <div>Albums by {user.name}</div>
+      <div>
+        Albums by {user.name}
+        <Button onClick={handleAddAlbum}>+ Add Album</Button>
+      </div>
       <div>{content}</div>
     </div>
   );

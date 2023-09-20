@@ -45,6 +45,17 @@
       "id": 11
     }
   ],
-  "albums": [{"id": 10,"title": "Belinda Stiedemann","userId": 8}],
+  "albums": [
+    {
+      "id": 10,
+      "title": "Belinda Stiedemann",
+      "userId": 8
+    },
+    {
+      "userId": 1,
+      "title": "Handcrafted Bronze Car",
+      "id": 11
+    }
+  ],
   "photos": []
 }
