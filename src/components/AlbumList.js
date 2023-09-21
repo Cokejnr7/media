@@ -5,7 +5,7 @@ import AlbumListItem from "./AlbumListItem";
 
 const AlbumList = ({ user }) => {
   // the hook returns an object with the following properties
-  const { data, error, isLoading } = useFetchAlbumsQuery(user);
+  const { data, error, isFetching } = useFetchAlbumsQuery(user);
   const [addAlbum, results] = useAddAlbumMutation();
 
   const handleAddAlbum = () => {
@@ -13,7 +13,7 @@ const AlbumList = ({ user }) => {
   };
 
   let content;
-  if (isLoading) {
+  if (isFetching) {
     content = <Skeleton className="h-10 w-full" times={3} />;
   } else if (error) {
     content = "Error loading Albums";
