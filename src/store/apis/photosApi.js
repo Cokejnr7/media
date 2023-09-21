@@ -9,6 +9,14 @@ export const photoApi = createApi({
 
   endpoints: (builder) => {
     return {
+      removePhoto: builder.mutation({
+        query: (photo) => {
+          return {
+            url: `/photos/${photo.id}`,
+            method: "DELETE",
+          };
+        },
+      }),
       addPhoto: builder.mutation({
         query: (album) => {
           return {
@@ -36,4 +44,8 @@ export const photoApi = createApi({
   },
 });
 
-export const { useFetchPhotosQuery } = photoApi;
+export const {
+  useFetchPhotosQuery,
+  useAddPhotoMutation,
+  useRemovePhotoMutation,
+} = photoApi;
