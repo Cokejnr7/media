@@ -32,7 +32,7 @@ export const photoApi = createApi({
       fetchPhotos: builder.query({
         query: (album) => {
           return {
-            url: "/photo",
+            url: "/photos",
             params: {
               albumId: album.id,
             },
